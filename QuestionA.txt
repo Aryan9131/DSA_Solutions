@@ -111,10 +111,10 @@ For each test case, I print:
 The original string
 The compressed result
 
-Test Case	Input String	Expected Output
-1	         "aabbcc"	     "a2b2c2"
+Test Case	Input String	 Output
+1	         "aabbcc"	  "a2b2c2"
 2	         "aabcccccaaa"	 "a2b1c5a3"
-3	         ""	             "" (empty)
-4	         "a"         	"a1"
-5	         "ab"	        "a1b1"
-6	         "aaaaa"	    "a5"
+3	         ""	          "" (empty)
+4	         "a"         	 "a1"
+5	         "ab"	         "a1b1"
+6	         "aaaaa"         "a5"
