@@ -1,0 +1,84 @@
+Qustion : Write a piece of code to determine if two rectangles are intersecting each other or not? Think about the logic and explain the same before showing the code.
+
+----------------------------------Solution------------------------------------------------------
+
+import java.util.ArrayList;
+
+class Pair<K, V> {
+    private K key;
+    private V value;
+
+    public Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+}
+
+public class Main {
+    public static boolean isIntersecting(ArrayList<Pair<Integer, Integer>> rec1, 
+                                         ArrayList<Pair<Integer, Integer>> rec2) {
+        if (rec2.get(0).getValue() > rec1.get(1).getValue() 
+            || rec2.get(1).getValue() < rec1.get(0).getValue()
+            || rec2.get(0).getKey() > rec1.get(1).getKey()
+            || rec2.get(1).getKey() < rec1.get(0).getKey()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Pair<Integer, Integer>> rec1 = new ArrayList<>();
+        rec1.add(new Pair<>(1, 2));  // (p1, q1) for rectangle1
+        rec1.add(new Pair<>(4, 4));  //(p2, q2)  for rectangle1
+
+        ArrayList<Pair<Integer, Integer>> rec2 = new ArrayList<>();
+        rec2.add(new Pair<>(4, 5));  // (x1, y1) for rectangle2
+        rec2.add(new Pair<>(7, 6));  //(x2, y2)  for rectangle2
+
+        boolean result = isIntersecting(rec1, rec2);
+        System.out.println("Rectangle1 and Rectangle2 are intersecting: " + result);
+    }
+}
+
+--------------------------------------Explaination------------------------------------------------
+
+Determining if Two Rectangles are Intersecting :
+
+Logic Explanation :
+
+-Two rectangles intersect if they overlap in both the x-axis and y-axis.
+- Each rectangle is represented by two diagonal points:
+- Rectangle 1 → (p1, q1) (bottom-left), (p2, q2) (top-right)
+- Rectangle 2 → (x1, y1) (bottom-left), (x2, y2) (top-right)
+- For two rectangles NOT to intersect, one must be completely outside the other:
+     - Above → y1 > q2 (Second rectangle is above the first)
+    - Below → y2 < q1 (Second rectangle is below the first)
+    - Left → x1 > p2 (Second rectangle is to the right of the first)
+    - Right → x2 < p1 (Second rectangle is to the left of the first)
+
+If none of these conditions are met, the rectangles must be intersecting.
+
+Code Explanation : 
+
+ - We store each rectangle’s points as a list of Pair<Integer, Integer> objects.
+ - We check for the four non-overlapping conditions.
+ - If any condition is true → Rectangles do NOT intersect (return false).
+   Otherwise → Rectangles intersect (return true).
+
+
+Test Cases & Output :
+
+Test Case	                    Rectangle 1 (p1, q1) to (p2, q2)	Rectangle 2 (x1, y1) to (x2, y2)     Output
+1️ Intersecting	                  (1,1) to (4,4)	                 (3,2) to (6,5)	                      true
+2️ No Intersection (Right Side) 	(1,1) to (4,4)	                 (5,2) to (7,5)	                      false
+3️ No Intersection (Above)	         (1,1) to (4,4)	                 (2,5) to (5,7)	                      false
+4️ One Inside Another	             (1,1) to (4,4)                	(2,2) to (3,3)	                      true
+5️ Overlapping on Edge	             (1,1) to (4,4)	                (4,1) to (6,4)	                      true

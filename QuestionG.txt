@@ -1,0 +1,32 @@
+Question : Explain a piece of code that you wrote which you are proud of? If you have not written any code, please write your favorite subject in engineering studies. We can go deep into that subject.
+
+Answer :
+
+Multi-Tenant Database Implementation in MongoDB :
+One of the most challenging and rewarding pieces of code I’ve written is implementing a multi-tenant database architecture in MongoDB for a project management system (Featureflow).
+
+Problem Statement:
+------------------
+In large organizations, multiple companies use the same platform, but their data must remain isolated while allowing efficient access. A multi-tenant system ensures each organization has its own separate data while using the same application.
+
+Solution Approach:
+-----------------
+I implemented database-level multi-tenancy by dynamically selecting the correct database based on the organization. 
+Each organization has its own separate database. 
+When a user logs in, their organization ID determines which database to connect to.
+This ensures data isolation while keeping the system scalable.
+
+Key Implementation:
+-------------------
+
+Used MongoDB’s dynamic connection handling to switch databases at runtime.
+Stored organization details in a master database to map users to their respective databases.
+Optimized queries to ensure performance even with multiple databases.
+
+Impact:
+--------
+Improved data security and scalability.
+Allowed organizations to have their own isolated data without requiring separate application instances.
+Helped in efficient resource utilization by using a shared application layer.
+This feature significantly improved Featureflow’s architecture and made it a scalable solution for large enterprises like TCS and Infosys.
+

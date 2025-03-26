@@ -1,0 +1,120 @@
+a)	String compression
+Implement a method to perform string compression. E.g. ‘aabcccccaaa’ should be a2b1c5a3. The code to implement this is given in the link - https://www.educative.io/answers/string-compression-using-run-length-encoding
+
+Build a second compressor which takes the output of first compressor and optimizes further. 
+The answer should be taken into second compressor and compress further.  
+E.g. a2b2c1a3c3 should become ab2c1ac3. Please test at the end cases as well. The code should work with inputs like a20b20c1a4 – ab20c1a4. Test and show the result of the same.  
+The compressed output should be put into a decompressor - 
+ab2c1ac3 should return aabbcaaaccc. 
+Write all the test cases to evaluate this and see if the results match.
+
+
+-------------------------------------- Solution ----------------------------------------------
+
+public class Main
+{
+    public static String compress(String str){
+        if(str.length()==0){
+            return str;
+        }
+        
+        String s = str.substring(0, 1);
+        int count =1;
+        
+        for(int i =1; i<str.length(); i++){
+            char curr = str.charAt(i);
+            char prev = str.charAt(i-1);
+            if(curr==prev){
+                count++;
+            }else{
+                if(count>=1){
+                    s+=count;
+                    count=1;
+                }
+                
+                s+=curr;
+            }
+        }
+        if(count>=1){
+             s+=count;
+             count=1;
+        }
+        return s;
+    }
+    
+	public static void main(String[] args) {
+	    String[] list = {"aabbcc", "aabcccccaaa", "", "a", "ab", "aaaaa"};
+	    int testCases = list.length;
+	    for(int i=0;i<testCases;i++){
+	        System.out.println(i+1+". input string "+list[i]); // to print for which testcase & input we are printing compress/decompress
+	        String compressedString = compress(list[i]); // pass the unCompressed string to compress function which will return the compressed string result
+	        System.out.println("Compressed : "+compressedString);
+	       // decompress(compressedString); // pass the compressed string result to decompress function to decompress the string
+	    }
+	}
+}
+
+------------------------------------------ Explaination --------------------------------------------
+
+Understanding the Code for String Compression
+I implemented a method to perform string compression using Run-Length Encoding (RLE). The idea is simple—if a character repeats consecutively, we store the character followed by its count.
+
+For example, "aabcccccaaa" → "a2b1c5a3"
+
+Step-by-Step Explanation of the Code
+1. Handling Edge Cases
+First, I check if the input string is empty. If it is, I return it as is. No need to compress an empty string.
+
+if(str.length() == 0) {
+    return str;
+}
+
+2. Initializing Variables
+I store the first character of the string (s = str.substring(0, 1)) since we will need to track characters and their counts.
+I also initialize count = 1 since we assume the first character has already appeared once.
+String s = str.substring(0, 1);
+int count = 1;
+
+3. Iterating Through the String
+Now, I iterate over the string, starting from the second character (index 1), and compare each character (curr) with the previous character (prev):
+for (int i = 1; i < str.length(); i++) {
+    char curr = str.charAt(i);
+    char prev = str.charAt(i - 1);
+
+If they are the same (curr == prev), it means the character is repeating, so I increase the count.
+If they are different, I add the previous character's count to s, reset count to 1, and append the new character (curr).
+
+if (curr == prev) {
+    count++;
+} else {
+    if (count >= 1) {
+        s += count;  // Append previous character count
+        count = 1;   // Reset count for new character
+    }
+    s += curr;  // Append new character
+}
+
+4. Handling the Last Character
+At the end of the loop, I need to make sure the last character's count is also added.
+if (count >= 1) {
+    s += count;
+    count = 1;
+}
+This ensures that no count is left out after the loop ends.
+
+5. Running the Code with Test Cases
+I created an array of test cases and iterated through them, calling the compress function for each one.
+String[] list = {"aabbcc", "aabcccccaaa", "", "a", "ab", "aaaaa"};
+int testCases = list.length;
+
+For each test case, I print:
+The original string
+The compressed result
+
+Test Case	Input String	Expected Output
+1	         "aabbcc"	     "a2b2c2"
+2	         "aabcccccaaa"	 "a2b1c5a3"
+3	         ""	             "" (empty)
+4	         "a"         	"a1"
+5	         "ab"	        "a1b1"
+6	         "aaaaa"	    "a5"

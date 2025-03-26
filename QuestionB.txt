@@ -1,0 +1,40 @@
+Question: Linked List - How to find the middle element of a singly linked list in one pass?
+
+----------------------------------Solution------------------------------------------------------
+
+class Solution {
+    int getMiddle(Node head) {
+        if(head==null){
+            return -1;
+        }
+       Node slow=head;
+       Node fast=head;
+       while(fast!=null && fast.next!=null){
+           slow=slow.next;
+           fast=fast.next.next;
+       }
+       
+       return slow.data;
+    }
+}
+
+--------------------------------------Explaination------------------------------------------------
+
+The idea is to use two pointers:
+
+ - Slow Pointer (slow) → Moves one step at a time.
+ - Fast Pointer (fast) → Moves two steps at a time.
+
+Step-by-Step Explanation :
+
+1) If the list is empty (head == null), return -1.
+2)Initialize slow and fast to head.
+3)Traverse the list:
+4)Move slow one step (slow = slow.next).
+5)Move fast two steps (fast = fast.next.next).
+6)When fast reaches the end (null), slow will be at the middle.
+
+Return slow.data.
+
+Time Complexity: O(N)
+Space Complexity: O(1)

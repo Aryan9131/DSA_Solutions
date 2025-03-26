@@ -1,0 +1,100 @@
+Question : Write a Program to multiple two (n*n) Matrices? Explain logic on how you would do it. 
+
+----------------------------------Solution------------------------------------------------------
+
+import java.io.*;
+import java.util.*;
+public class Main {
+    
+    public static void multiply(int[][] mat1, int[][] mat2, int n){
+        int[][] result = new int[n][n];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                for(int k=0; k<n; k++){
+                    result[i][j] = mat1[i][k] * mat2[k][j];
+                }
+            }
+        }
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                System.out.print(result[i][j]+" ");
+            }
+            System.out.println();
+        }
+        
+    }
+    public static void main(String[] args) {
+       Scanner scn = new Scanner(System.in);
+       int n = scn.nextInt(); //  take matrix dimentions for nxn
+       int row = n ; // total number of row n matrix
+       int col = n ; // total number of col n matrix
+       
+       int[][] matrixA = new int[row][col];  // create matrixA and take input for each columns
+       for(int i=0;i<row;i++){
+           for(int j=0;j<col;j++){
+               matrixA[i][j] = scn.nextInt();
+           }
+       }
+      
+       int[][] matrixB = new int[row][col]; // create matrixB and take input for each columns
+       for(int i=0;i<row;i++){
+           for(int j=0;j<col;j++){
+               matrixB[i][j] = scn.nextInt();
+           }
+       }
+       
+       multiply(matrixA, matrixB, n);  // Call the function to multiply the two matrix
+    }
+}
+
+
+
+
+Logic Explanation :
+
+Matrix multiplication follows a specific rule:
+If we have two n×n matrices:
+ -Matrix A with elements  A[i][j]
+ -Matrix B with elements  B[i][j]
+then,
+
+ - Iterate over rows of Matrix A (i loop).
+ - Iterate over columns of Matrix B (j loop).
+ - Compute each element in result matrix by summing the product of corresponding elements (k loop).
+
+Example Execution & Test Cases :
+
+-----------
+Test Case 1 :
+-----------
+ Input:
+ Enter matrix dimension (n): 2
+ Enter elements of Matrix A:
+ 1 2
+ 3 4
+ Enter elements of Matrix B:
+ 5 6
+ 7 8
+
+ Resultant Matrix:
+ 19 22
+ 43 50
+
+-----------
+Test Case 2 :
+-----------
+ Input:
+ Enter matrix dimension (n): 3
+ Enter elements of Matrix A:
+ 1 2 3
+ 4 5 6
+ 7 8 9
+ Enter elements of Matrix B:
+ 9 8 7
+ 6 5 4
+ 3 2 1
+
+ Resultant Matrix:
+ 30 24 18
+ 84 69 54
+ 138 114 90

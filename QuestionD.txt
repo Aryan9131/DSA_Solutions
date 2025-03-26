@@ -1,0 +1,68 @@
+Question : Count Ways to Express a Number as the Sum of Consecutive Natural Numbers
+Given a natural number n, we are asked to find the total number of ways to express n as the sum of consecutive natural numbers.
+
+Example 1:Input: 15
+Output: 3
+Explanation: There are 3 ways to represent 15 as sum of consecutive natural numbers as follows:
+1 + 2 + 3 + 4 + 5 = 15
+4 + 5 + 6 = 15
+7 + 8 = 15
+
+----------------------------------Solution------------------------------------------------------
+
+public class Main
+{
+     public static int countWays(int n) {
+        int count = 0;
+
+        // Start from each number i and check consecutive sums
+        for (int i = 1; i < n; i++) {
+            int sum = 0;
+            
+            for (int j = i; j <= n; j++) {
+                sum += j;
+                
+                if (sum == n) {
+                    count++; // Found a valid sequence
+                    break;
+                }
+                if (sum > n) {
+                    break; // No need to continue if sum exceeds n
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int n = 10;
+        System.out.println("Total ways: " + countWays(n));
+    }
+}
+
+--------------------------------------Explaination------------------------------------------------
+
+The goal is to find how many ways we can represent a number n as the sum of consecutive natural numbers.
+
+Approach :
+
+- Initialize count = 0 to track valid sequences.
+- Start from each number i and check if adding consecutive numbers (j) forms n.
+- Maintain a running sum (sum) and:
+- If sum == n, increment count (found a valid sequence).
+- If sum > n, break the inner loop (no need to continue).
+
+Return count after checking all possibilities.
+
+Time Complexity: O(N²)
+The outer loop runs from 1 to n.
+
+The inner loop runs until the sum exceeds n, making it quadratic in the worst case.
+
+Example
+For n = 15, the valid sequences are:
+
+1 + 2 + 3 + 4 + 5 = 15
+4 + 5 + 6 = 15
+7 + 8 = 15
+Thus, output = 3.
